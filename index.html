@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポイント逆算サイト</title>
+</head>
+<body>
+  <h1>ポイント逆算計算機</h1>
+
+  <label for="a">現在のポイント (a):</label>
+  <input type="number" id="a" required><br><br>
+
+  <label for="b">Apple Watch の価格 (b円):</label>
+  <input type="number" id="b" required><br><br>
+
+  <button onclick="calculate()">cポイントを求める</button>
+
+  <h2>結果</h2>
+  <p id="result"></p>
+
+  <script>
+    function calculate() {
+      const a = Number(document.getElementById('a').value);
+      const b = Number(document.getElementById('b').value);
+      const target = 1800;
+
+      let found = false;
+      let resultText = "該当するcが見つかりません";
+
+      for (let c = 0; c <= a && c <= b; c++) {
+        const payment = b - c;
+        const earned = Math.ceil(payment * 0.03);
+        const total = a - c + earned;
+
+        if (total === target) {
+          resultText = `適切なcの値は ${c} ポイントです。`;
+          found = true;
+          break;
+        }
+      }
+
+      document.getElementById('result').innerText = resultText;
+    }
+  </script>
+</body>
+</html>
